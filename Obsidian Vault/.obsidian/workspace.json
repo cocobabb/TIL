@@ -4,46 +4,35 @@
     "type": "split",
     "children": [
       {
-        "id": "332789bd3ab85e8e",
+        "id": "950aff31717d4209",
         "type": "tabs",
         "children": [
           {
-            "id": "fab0447a79dd37b8",
+            "id": "39b71002567413f4",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "gitingnore.md",
+                "file": "html.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "305449146654d6b1",
+            "id": "97e30adb75f2b63c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "git.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "0094ccb7d07c3ca9",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "CLI 기초.md",
+                "file": "html 태그 구분.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -109,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "gitingnore.md",
+                "file": "html 태그 구분.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "gitingnore.md",
+                "file": "html 태그 구분.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -149,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "gitingnore.md"
+                "file": "html 태그 구분.md"
               }
             }
           }
@@ -170,13 +159,15 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "fab0447a79dd37b8",
+  "active": "97e30adb75f2b63c",
   "lastOpenFiles": [
+    "html 태그 구분.md",
+    "html.md",
     "GitHub_push&pull.md",
-    "CLI 기초.md",
     "git.md",
-    "dog.jpg",
     "gitingnore.md",
+    "CLI 기초.md",
+    "dog.jpg",
     "obsidian 사용법.md"
   ]
 }
