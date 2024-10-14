@@ -4,35 +4,34 @@
     "type": "split",
     "children": [
       {
-        "id": "950aff31717d4209",
+        "id": "b91034150da6c648",
         "type": "tabs",
         "children": [
           {
-            "id": "39b71002567413f4",
+            "id": "6f219e462cf93d51",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "html.md",
+                "file": "Form tag.md",
                 "mode": "source",
                 "source": false
               }
             }
           },
           {
-            "id": "97e30adb75f2b63c",
+            "id": "b4c2e3375e6de3e8",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "html 태그 구분.md",
+                "file": "CSS(Cascading Style Sheets).md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -98,7 +97,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "html 태그 구분.md",
+                "file": "Form tag.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +114,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "html 태그 구분.md",
+                "file": "Form tag.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +137,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "html 태그 구분.md"
+                "file": "Form tag.md"
               }
             }
           }
@@ -159,15 +158,19 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "97e30adb75f2b63c",
+  "active": "6f219e462cf93d51",
   "lastOpenFiles": [
+    "CSS(Cascading Style Sheets).md",
+    "Form tag.md",
+    "image.png",
+    "Pasted image 20241014191048.png",
     "html 태그 구분.md",
+    "obsidian 사용법.md",
     "html.md",
     "GitHub_push&pull.md",
     "git.md",
     "gitingnore.md",
     "CLI 기초.md",
-    "dog.jpg",
-    "obsidian 사용법.md"
+    "dog.jpg"
   ]
 }
