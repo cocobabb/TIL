@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+}
+section {
+  width: 700px;
+  margin: auto;
+  border: black 5px dotted;
+}
+.top {
+  background-color: yellowgreen;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  height: 30px;
+}
+.bottom {
+  background-color: green;
+  height: 30px;
+}
+.sub_box {
+  background-color: yellowgreen;
+  height: 70px;
+  text-align: center;
+  margin-bottom: 36px;
+  padding-top: 10px;
+  box-sizing: border-box;
+}
+.sub {
+  color: aliceblue;
+  font-weight: bold;
+  font-size: 20px;
+}
+span {
+  font-weight: bold;
+  font-size: 20px;
+}
+p {
+  background-color: antiquewhite;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+img {
+  display: block;
+  width: 670px;
+}
+.contents {
+  width: 670px;
+  margin: 10px;
+}
