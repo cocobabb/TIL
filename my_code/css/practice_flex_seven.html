@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        border: 1px solid black;
+      }
+
+      .seven_container1 {
+        display: flex;
+        justify-content: start;
+      }
+      .seven_container2 {
+        display: flex;
+        justify-content: end;
+      }
+      .seven_container2 > div {
+        margin-left: 10px;
+      }
+      .seven_bigContainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="seven_bigContainer">
+      <div class="seven_container1">
+        <div class="box"></div>
+      </div>
+      <div class="seven_container2">
+        <div class="box"></div>
+        <div class="box"></div>
+      </div>
+    </div>
+  </body>
+</html>
