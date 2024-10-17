@@ -8,10 +8,16 @@
       * {
         text-align: center;
       }
+
       h1 {
         color: brown;
       }
+      /* flex 이용해서 메뉴 가격 배치하기 */
+
       li {
+        display: flex;
+        justify-content: space-between;
+
         list-style: none;
         font-weight: bold;
         font-style: italic;
@@ -19,34 +25,66 @@
       span {
         font-weight: bold;
       }
-      .price {
-        padding-left: 50px;
+      main {
+        width: 60%;
+      }
+      header {
+        width: 60%;
+      }
+      #menu_size {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
       }
     </style>
   </head>
   <body>
-    <header>
-      <h1>MENU</h1>
-    </header>
-    <main>
-      <span>COFFEE</span>
-      <br />
-      <hr />
-      <ul>
-        <li>아메리카노 <span class="price">5.0/5.5</span></li>
-        <li>카페라떼 <span class="price">6.0/6.5</span></li>
-        <li>바닐라라떼 <span class="price">6.0/6.5</span></li>
-        <li>카라멜마끼아또 <span class="price">6.5/7.0</span></li>
-      </ul>
-      <br />
-      <span>ADE</span>
-      <br />
-      <hr />
-      <ul>
-        <li>레몬에이드 <span class="price">6.0</span></li>
-        <li>자몽에이드 <span class="price">6.0</span></li>
-        <li>유자에이드 <span class="price">6.0</span></li>
-      </ul>
-    </main>
+    <div id="menu_size">
+      <header>
+        <h1>MENU</h1>
+      </header>
+      <main>
+        <span>COFFEE</span>
+        <br />
+        <hr />
+        <ul>
+          <li>
+            <span class="drinks">아메리카노 </span>
+            <span class="price">5.0/5.5</span>
+          </li>
+          <li>
+            <span class="drinks">카페라떼</span>
+            <span class="price">6.0/6.5</span>
+          </li>
+          <li>
+            <span class="drinks">바닐라라떼</span>
+            <span class="price">6.0/6.5</span>
+          </li>
+          <li>
+            <span class="drinks">카라멜마끼아또</span>
+            <span class="price">6.5/7.0</span>
+          </li>
+        </ul>
+        <br />
+        <span>ADE</span>
+        <br />
+        <hr />
+        <ul>
+          <li>
+            <span class="drinks">레몬에이드 </span>
+            <span class="price">6.0</span>
+          </li>
+          <li>
+            <span class="drinks">자몽에이드</span>
+            <span class="price">6.0</span>
+          </li>
+          <li>
+            <span class="drinks">유자에이드</span>
+            <span class="price">6.0</span>
+          </li>
+        </ul>
+      </main>
+    </div>
   </body>
 </html>
