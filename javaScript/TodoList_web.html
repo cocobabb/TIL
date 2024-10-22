@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #subject {
+        display: flex;
+        justify-content: center;
+      }
+      .textBox_container {
+        display: flex;
+        justify-content: center;
+      }
+
+      #todoList {
+        display: flex;
+        justify-content: center;
+      }
+      ul {
+        list-style: none;
+        width: 80%;
+      }
+      .checkbox {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1 id="subject">ToDo List</h1>
+    </header>
+    <main>
+      <article class="textBox_container">
+        <form action="">
+          <input class="textBox" type="text" />
+          <button type="submit">추가</button>
+        </form>
+      </article>
+
+      <article id="todoList">
+        <ul>
+          <li>예습하기<input class="checkbox" type="checkbox" /></li>
+          <hr />
+          <li>강의듣기<input class="checkbox" type="checkbox" /></li>
+          <hr />
+          <li>복습하기<input class="checkbox" type="checkbox" /></li>
+          <hr />
+        </ul>
+      </article>
+    </main>
+  </body>
+</html>
