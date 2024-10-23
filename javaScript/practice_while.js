@@ -38,7 +38,7 @@ while (true) {
   idx++;
   if (idx >= names.length) break;
 }
-
+''
 // 주어진 리스트의 합계를 계산
 nums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 console.log('-리스트 합계--');
