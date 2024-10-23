@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "dad45df0662ce2c5",
+        "id": "0bff0e3254eb4785",
         "type": "tabs",
         "children": [
           {
-            "id": "bdc3b1c8d693b518",
+            "id": "f91761160f2fe5fe",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "GitHub_push&pull.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "GitHub_push&pull"
+              "title": "New tab"
             }
           }
         ]
@@ -164,36 +160,40 @@
   },
   "active": "41b49510f382351d",
   "lastOpenFiles": [
-    "git.md",
-    "GitHub_push&pull.md",
-    "JavaScript 반복문.md",
-    "Javascript 참조 자료형(reference Types).md",
+    "Javascript",
+    "HTML",
+    "Untitled 1",
+    "git",
+    "Javascript/Javascript 내장 함수.md",
+    "CSS/Form tag.md",
+    "CSS/CSS 디스플레이(Display) 속성.md",
+    "CLI 기초.md",
+    "Javascript/Javascript 유효범위.md",
+    "CSS",
+    "Javascript/Javascript 함수(Function).md",
+    "hjhghj.md",
+    "git/GitHub_push&pull.md",
+    "git/git.md",
+    "Javascript/JavaScript 반복문.md",
+    "Javascript/Javascript 참조 자료형(reference Types).md",
     "obsidian 사용법.md",
     "Pasted image 20241015204308.png",
     "Pasted image 20241014191048.png",
-    "Javascript 조건문(Condition).md",
-    "JavaScript 원시 자료형.md",
-    "Javascript 연산자(Operator).md",
-    "Javascript 변수.md",
-    "JavaScript.md",
+    "Javascript/Javascript 조건문(Condition).md",
+    "Javascript/JavaScript 원시 자료형.md",
+    "Javascript/Javascript 연산자(Operator).md",
+    "Javascript/Javascript 변수.md",
+    "Javascript/JavaScript.md",
     "image.png",
-    "html 태그 구분.md",
-    "html.md",
-    "gitingnore.md",
-    "CSS(Cascading Style Sheets).md",
+    "HTML/html 태그 구분.md",
+    "HTML/html.md",
+    "git/gitingnore.md",
+    "CSS/CSS(Cascading Style Sheets).md",
     "dog.jpg",
-    "Form tag.md",
-    "CSS 플렉스 박스 레이아웃.md",
-    "CSS 우선순위(Specificity).md",
-    "CSS 포지션 속성.md",
-    "CSS 애니메이션.md",
-    "CSS 라이브러리.md",
-    "CSS 디스플레이(Display) 속성.md",
-    "HOME.md",
-    "CSS grid.md",
-    "반응형 웹 디자인.md",
-    "CSS 미디어 쿼리.md",
-    "CLI 기초.md",
+    "CSS/CSS 플렉스 박스 레이아웃.md",
+    "CSS/CSS 우선순위(Specificity).md",
+    "CSS/CSS 포지션 속성.md",
+    "CSS/CSS 애니메이션.md",
     "code"
   ]
 }
