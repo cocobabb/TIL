@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style></style>
+  </head>
+  <body>
+    <h1 class="sub">제목1</h1>
+    <h1 class="back_color">제목2</h1>
+    <h1 class="back_color">제목3</h1>
+    <h1>제목4</h1>
+    <script>
+      const red = 'blue';
+      const h = document.querySelector('.sub');
+      const hs = document.querySelectorAll('h1');
+      const tc = document.querySelectorAll('.back_color');
+      h.style.backgroundColor = 'red';
+
+      hs.forEach((h) => {
+        h.style.color = 'pink';
+      });
+
+      for (el of tc) {
+        el.style.backgroundColor = 'blue'; // 해당 클래스 요소들 배경 블루
+        el.classList.add('active'); // 해당 클래스 요소들에 active class 추가
+        if (el.classList.contains('active')) {
+          // 해당 클래스 요소들에 active 클래스가 존재하면 밑에 코드들 실행
+          console.log('active 클래스가 추가 되었습니다.');
+          el.classList.toggle('active'); // 해당 클래스 요소들에 이 class가 존재하면 제거, 없으면 추가
+        }
+      }
+    </script>
+  </body>
+</html>
