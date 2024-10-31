@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>random location</title>
+    <style>
+      div {
+        border: solid 1px black;
+        display: flex;
+        flex-direction: row;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <ul id="row1">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <ul id="row2">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <ul id="row3">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <ul id="row4">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script>
+      const personArr = [
+        '가경식',
+        '강경훈',
+        '김동훈',
+        '김상호',
+        '노영재',
+        '박재훈',
+        '박종빈',
+        '박하은',
+        '서승덕',
+        '오예진',
+        '원성준',
+        '육슬찬',
+        '윤대정',
+        '이상호',
+        '이재현',
+        '이태영',
+        '임수빈',
+        '임유진',
+        '정명훈',
+        '정승연',
+        '정여원',
+        '최원호',
+        '차윤선',
+      ];
+
+      const newPersonArr = _.shuffle(personArr);
+      // console.log(newPersonArr);
+      const li_list = document.querySelectorAll('li');
+      // console.log(li_list);
+
+      for (let i = 0; i < li_list.length; i++) {
+        if (i === 23) break;
+        li_list[i + 1].textContent = `${newPersonArr[i]}`;
+      }
+    </script>
+  </body>
+</html>
