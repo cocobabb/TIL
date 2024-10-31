@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>random Color Box</title>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script>
+      const numR = _.random(0, 255);
+      const numG = _.random(0, 255);
+      const numB = _.random(0, 255);
+
+      const colorBox = document.createElement('div');
+      colorBox.style.width = '100px';
+      colorBox.style.height = '100px';
+      colorBox.style.backgroundColor = `rgb(${numR}, ${numG}, ${numB})`;
+      const body = document.querySelector('body');
+      body.appendChild(colorBox);
+    </script>
+  </body>
+</html>
