@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>card</title>
+    <style>
+      .card {
+        border: solid 1px black;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        border-radius: 15px;
+        width: 300px;
+      }
+      img {
+        width: 100%;
+      }
+      .card_body {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .btn {
+        background-color: blue;
+        color: white;
+        text-decoration: none;
+        width: 45%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="container">
+      <!-- bootstrap의 card 컴포넌트 -->
+      <div class="card" style="width: 18rem">
+        <img class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+          <button id="btn">버튼</button>
+        </div>
+      </div>
+    </div>
+    <button id="add_card">카드 추가</button>
+    <script>
+      // 강아지 사진 불러오는 함수
+      async function get_dogImg(img) {
+        const response = await fetch('https://dog.ceo/api/breeds/image/random');
+        const data = await response.json();
+        const dogImg = data.message;
+
+        // img.src = dogImg; //방법1
+        img.setAttribute('src', dogImg); //방법2
+      }
+      const img = document.querySelector('img');
+      get_dogImg(img);
+
+      // 버튼 누르면 강아지 사진 변경
+      const btn = document.querySelector('#btn');
+      btn.addEventListener('click', (e) => {
+        get_dogImg(img);
+      });
+
+      // 카드 추가
+      const add_card = document.querySelector('#add_card');
+      add_card.addEventListener('click', (e) => {
+        const card = document.querySelector('.card');
+        const cloneCard = card.cloneNode(true);
+
+        const cloneCard_img = cloneCard.querySelector('img');
+        get_dogImg(cloneCard_img);
+
+        const container = document.querySelector('#container');
+        container.appendChild(cloneCard);
+      });
+    </script>
+  </body>
+</html>
