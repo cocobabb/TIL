@@ -20,9 +20,10 @@ async function createLi(ob) {
   todo_li.append(li_btn_finish, li_btn_delete);
 
   // 완료 버튼 눌렀을 때 이벤트
-  li_btn_finish.addEventListener('click', (e) => {
-    todo_li.classList.toggle('finish');
-    if (todo_li.classList.contains('finish')) {
+  li_btn_finish.addEventListener('click', async (e) => {
+    ob = await changeStatus(ob); // object 데이터 변화
+
+    if (ob.completed) {
       todo_li.style.textDecorationLine = 'line-through';
       todo_li.style.color = 'grey';
     } else {
@@ -30,6 +31,29 @@ async function createLi(ob) {
       todo_li.style.color = '';
     }
   });
+
+  if (ob.completed) {
+    todo_li.style.textDecorationLine = 'line-through';
+    todo_li.style.color = 'grey';
+  } else {
+    todo_li.style.textDecorationLine = '';
+    todo_li.style.color = '';
+  }
+}
+// 완료 버튼으로 인한 db.json 데이터 변화시키기
+async function changeStatus(ob) {
+  const response = await fetch(`http://localhost:3000/todos/${ob.id}`, {
+    method: 'PATCH',
+    body: JSON.stringify({
+      completed: !ob.completed,
+    }),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  });
+  const data = await response.json();
+  // console.log(data);
+  return data;
 }
 
 // db.json 에 데이터 있으면 목록 보여주기

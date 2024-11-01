@@ -13,7 +13,7 @@
     {
       "id": 3,
       "content": "b",
-      "completed": false
+      "completed": true
     },
     {
       "id": 4,
@@ -28,6 +28,11 @@
     {
       "id": 6,
       "content": "d",
+      "completed": false
+    },
+    {
+      "id": 7,
+      "content": "ㄹ",
       "completed": false
     }
   ]
