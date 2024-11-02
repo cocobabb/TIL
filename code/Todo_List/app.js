@@ -23,15 +23,21 @@ async function createLi(ob) {
   li_btn_finish.addEventListener('click', async (e) => {
     ob = await changeStatus(ob); // object 데이터 변화
 
-    if (ob.completed) {
-      todo_li.style.textDecorationLine = 'line-through';
-      todo_li.style.color = 'grey';
-    } else {
-      todo_li.style.textDecorationLine = '';
-      todo_li.style.color = '';
+    set_styleText(ob, todo_li);
+  });
+  set_styleText(ob, todo_li);
+
+  // 삭제 버튼 눌렀을 떄 이벤트
+  li_btn_delete.addEventListener('click', async (e) => {
+    const response = await deleteOb(ob);
+    if (response.ok) {
+      todo_li.remove();
     }
   });
+}
 
+// 완료 버튼을 누름에 따라 할일 항목에 text 스타일 변화
+function set_styleText(ob, todo_li) {
   if (ob.completed) {
     todo_li.style.textDecorationLine = 'line-through';
     todo_li.style.color = 'grey';
@@ -40,6 +46,7 @@ async function createLi(ob) {
     todo_li.style.color = '';
   }
 }
+
 // 완료 버튼으로 인한 db.json 데이터 변화시키기
 async function changeStatus(ob) {
   const response = await fetch(`http://localhost:3000/todos/${ob.id}`, {
@@ -60,14 +67,16 @@ async function changeStatus(ob) {
 async function initTodos() {
   console.log('Hello World');
   const response = await fetch('http://localhost:3000/todos');
-  const todosArr = await response.json(); //할 일 목록이 들어있는 배열
+
+  //할 일 목록이 들어있는 배열
+  let todosArr = await response.json();
   // 데이터 있으면 할 일 리스트 생성
   for (let ob of todosArr) {
-    createLi(ob);
+    todosArr = createLi(ob);
   }
 }
 // 할 일 추가 버튼 눌렀을 때 이벤트
-async function clickEvent() {
+async function clickAddEvent() {
   const add_todo = document.querySelector('#add-todo');
   const todo_input = document.querySelector('#todo-input');
   add_todo.addEventListener('click', async (e) => {
@@ -75,12 +84,15 @@ async function clickEvent() {
       content: todo_input.value,
       completed: false,
     };
-    addEvent(todo); //db.json 데이터 넣기
-    createLi(todo); // 추가된 데이터 화면에 보이기
+    //db.json 데이터 넣기
+    addEvent(todo);
+
+    // 추가된 데이터 화면에 보이기
+    createLi(todo);
   });
 }
 
-// 버튼 눌리면 db.json에 데이터 추가
+// 추가 버튼 눌리면 db.json에 데이터 추가
 async function addEvent(todo) {
   const response = await fetch('http://localhost:3000/todos', {
     method: 'POST',
@@ -93,7 +105,15 @@ async function addEvent(todo) {
   return addTodo;
 }
 
+async function deleteOb(ob) {
+  const response = await fetch(`http://localhost:3000/todos/${ob.id}`, {
+    method: 'DELETE',
+  });
+  // console.log(response);
+  return response;
+}
+
 async function main() {
   initTodos();
-  clickEvent();
+  clickAddEvent();
 }
