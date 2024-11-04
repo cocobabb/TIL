@@ -5,6 +5,38 @@ const URL = 'http://localhost:3000/todos';
 // 페이지가 로드되면 Todo 목록 초기화 함수를 실행한다.
 document.addEventListener('DOMContentLoaded', main);
 
+// db.json 에 데이터 있으면 목록 보여주기
+async function initTodos() {
+  console.log('Hello World');
+  const response = await fetch('http://localhost:3000/todos');
+
+  //할 일 목록이 들어있는 배열
+  let todosArr = await response.json();
+  // 데이터 있으면 할 일 리스트 생성
+  for (let ob of todosArr) {
+    createLi(ob);
+  }
+}
+// 할 일 추가 버튼 눌렀을 때 이벤트
+async function clickAddEvent() {
+  const add_todo = document.querySelector('#add-todo');
+  const todo_input = document.querySelector('#todo-input');
+  add_todo.addEventListener('click', async (e) => {
+    const todo = {
+      content: todo_input.value,
+      completed: false,
+    };
+    // db.json 데이터 넣기
+    // 넣어진 데이터 addOb
+    const addOb = await addEvent(todo);
+
+    // 추가된 데이터 화면에 보이기
+    createLi(addOb);
+
+    // 입력되면 입력창 비우기
+    todo_input.value = '';
+  });
+}
 // 리스트 할 일 항목 만드는 함수
 async function createLi(ob) {
   const todo_list = document.querySelector('#todo-list');
@@ -27,7 +59,7 @@ async function createLi(ob) {
   });
   set_styleText(ob, todo_li);
 
-  // 삭제 버튼 눌렀을 떄 이벤트
+  // 삭제 버튼 눌렀을 때 이벤트
   li_btn_delete.addEventListener('click', async (e) => {
     const response = await deleteOb(ob);
     if (response.ok) {
@@ -40,7 +72,7 @@ async function createLi(ob) {
 function set_styleText(ob, todo_li) {
   if (ob.completed) {
     todo_li.style.textDecorationLine = 'line-through';
-    todo_li.style.color = 'grey';
+    todo_li.style.color = 'gray';
   } else {
     todo_li.style.textDecorationLine = '';
     todo_li.style.color = '';
@@ -61,35 +93,6 @@ async function changeStatus(ob) {
   const data = await response.json();
   // console.log(data);
   return data;
-}
-
-// db.json 에 데이터 있으면 목록 보여주기
-async function initTodos() {
-  console.log('Hello World');
-  const response = await fetch('http://localhost:3000/todos');
-
-  //할 일 목록이 들어있는 배열
-  let todosArr = await response.json();
-  // 데이터 있으면 할 일 리스트 생성
-  for (let ob of todosArr) {
-    todosArr = createLi(ob);
-  }
-}
-// 할 일 추가 버튼 눌렀을 때 이벤트
-async function clickAddEvent() {
-  const add_todo = document.querySelector('#add-todo');
-  const todo_input = document.querySelector('#todo-input');
-  add_todo.addEventListener('click', async (e) => {
-    const todo = {
-      content: todo_input.value,
-      completed: false,
-    };
-    //db.json 데이터 넣기
-    addEvent(todo);
-
-    // 추가된 데이터 화면에 보이기
-    createLi(todo);
-  });
 }
 
 // 추가 버튼 눌리면 db.json에 데이터 추가
