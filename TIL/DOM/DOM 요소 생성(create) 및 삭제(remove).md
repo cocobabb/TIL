@@ -91,7 +91,7 @@ const newDiv = document.createElement('div');
 ### **부모요소.removeChild(자식요소)**
 : 메서드를 사용하여 부모 요소에서 **자식 요소를 제거**
 
-### **요소.remove() **
+### **요소.remove()**
 : 메서드를 사용하여 **자기 자신을 직접 제거**
 
 ### **요소.firstChild**

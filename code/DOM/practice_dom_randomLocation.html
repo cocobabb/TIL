@@ -10,11 +10,21 @@
         display: flex;
         flex-direction: row;
       }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        border: solid 1px black;
+        width: 100px;
+        height: 50px;
+        text-align: center;
+      }
     </style>
   </head>
   <body>
     <div>
-      <ul id="row1">
+      <ul>
         <li></li>
         <li></li>
         <li></li>
@@ -23,7 +33,7 @@
         <li></li>
         <li></li>
       </ul>
-      <ul id="row2">
+      <ul>
         <li></li>
         <li></li>
         <li></li>
@@ -32,7 +42,7 @@
         <li></li>
         <li></li>
       </ul>
-      <ul id="row3">
+      <ul>
         <li></li>
         <li></li>
         <li></li>
@@ -41,7 +51,7 @@
         <li></li>
         <li></li>
       </ul>
-      <ul id="row4">
+      <ul>
         <li></li>
         <li></li>
         <li></li>
@@ -80,12 +90,10 @@
       ];
 
       const newPersonArr = _.shuffle(personArr);
-      // console.log(newPersonArr);
       const li_list = document.querySelectorAll('li');
-      // console.log(li_list);
 
       for (let i = 0; i < li_list.length; i++) {
-        if (i === 23) break;
+        if (i === newPersonArr.length) break;
         li_list[i + 1].textContent = `${newPersonArr[i]}`;
       }
     </script>

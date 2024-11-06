@@ -7,33 +7,8 @@
     },
     {
       "id": 2,
-      "content": "a",
-      "completed": false
-    },
-    {
-      "id": 3,
-      "content": "b",
+      "content": "복습하기",
       "completed": true
-    },
-    {
-      "id": 4,
-      "content": "a",
-      "completed": false
-    },
-    {
-      "id": 5,
-      "content": "c",
-      "completed": false
-    },
-    {
-      "id": 6,
-      "content": "d",
-      "completed": false
-    },
-    {
-      "id": 7,
-      "content": "ㄹ",
-      "completed": false
     }
   ]
 }

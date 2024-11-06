@@ -13,7 +13,7 @@ showThis();
 ```
 
 ### 메서드 내부의 this
-: 메서드의 바로 상위 컨텍스트인 함수의 객체를 참조함
+: 메서드의 **바로 상위 컨텍스트인 함수의 객체를 참조함**
 ```Javascript
 const person = {
   name: '철수',
@@ -27,7 +27,7 @@ const person = {
 person.greet();
 ```
 ### 화살표 함수 내부의 this
-: 함수의 상위 컨텍스트의 상위 컨텍스트의 객체를 참조함 
+: 함수의 **상위 컨텍스트의 상위 컨텍스트의 객체를 참조함** 
 
 ```Javascript
 const person = {

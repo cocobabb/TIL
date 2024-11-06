@@ -71,7 +71,7 @@ async function getMovies() {
     const highScore_movie = movies.filter((movie) => movie.vote_average >= 7);
     console.log(highScore_movie);
 
-    console.log('-- 영화 중 평점이 가장 높은 영화의 포스터 이미지를 조회--');
+    console.log('--영화 중 평점이 가장 높은 영화의 포스터 이미지를 조회--');
     // nowplaying 데이터에서 revenue와 관련된 데이터가 없음
     // >> 다른 곳에서 데이터를 찾아야 겠다.
     // >> 다른 곳 url에서 image 관련 데이터가 있음을 확인했음

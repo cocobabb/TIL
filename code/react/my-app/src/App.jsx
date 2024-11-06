@@ -1,15 +1,14 @@
-// 함수 안에 html 구조가 들어간 형태: jsx
-// jsx를 통해 컴포넌트를 만들 수 있음
-function Profile() {
-  return <div>my image</div>;
-}
+import React from 'react';
+import Profile from './Profile';
+import Cat from './Cat';
 
-function App() {
+export default function App() {
   return (
     <div>
-      Haha
-      <Profile></Profile>
+      App
+      <Profile>
+        <Cat></Cat>
+      </Profile>
     </div>
   );
 }
-export default App;
