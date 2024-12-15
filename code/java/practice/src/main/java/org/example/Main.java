@@ -1,7 +1,10 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
+import org.example.javaIntro.Dog;
+
+import static org.example.javaIntro.Coffee.taste;
+
 public class Main {
     public static void main(String[] args) {
         Circle c1 = new Circle(3);
@@ -12,6 +15,7 @@ public class Main {
         Person p = new Person("Nick", 18);
         System.out.println("name: " + p.name +" age:" + p.age);
 
+//      다른 패키지에 있는 클래스 인스턴스 생성 => import 필요
         System.out.println("--------Dog-------");
         Dog d = new Dog("Bichon","Gurm");
         d.SeatDown();
@@ -56,6 +60,20 @@ public class Main {
         m.decreaseVolume();
         m.decreaseVolume();
         m.showPlayerInfo();
+        System.out.println("--------Calculator-------");
+        Calculator cal = new Calculator();
+        System.out.println(cal.add(10,4));
+//        클래스에서 클래스 메서드에 접근
+        System.out.println(Calculator.staticAdd(10,4)); 
+//        인스턴스에서 클래스 메서드에 접근
+        System.out.println(cal.staticAdd(10,4));
+
+//        다른 패키지에 있는 클래스 메서드 실행 => import 필요
+        taste();
+
+
+
+
 
     }
 }
