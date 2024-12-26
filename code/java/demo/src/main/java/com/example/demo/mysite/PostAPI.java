@@ -17,8 +17,9 @@ public class PostAPI {
     private Long id = 0L;
 
     {
+//        초기화 블럭
 //        인스턴스가 생성되었을 때 한번 실행된다.
-//        초기값을  넣을 때 사용
+//        초기값을 넣을 때 사용
         posts.add(new Post(++id, "제목", "내용"));
     }
 
@@ -71,11 +72,18 @@ public class PostAPI {
 //    delete
     @GetMapping("/posts/{id}/delete")
     public Post deleatePost(@PathVariable Long id) {
+        // 반복문에서 Collection framework를 순회할 때 Collection의 iterator가 구조적 변경(Structural Modification)을
+        // 감지하여 순회 중 변경이 일어나면 더이상 Collection을 신뢰할 수 없어 ConcurrentModificationException을 던짐 
+        // => Collection을 순회할 때 사용하는 iterator는 컬렉션이 변경되지 않을 것을 전제로 설계 되었음
+        // => Java의 ConcurrentModificationException 메커니즘은 프로그래머가 컬렉션을 순회하는 동안 안전하지 않은 수정 작업을 감지하여 예외를 던지는 기능
+        // => 이를 통해 데이터의 무결성을 유지하고, 개발자가 예상치 못한 문제를 조기에 발견하도록 도움
+        Post removedPost = null;
         for(Post post : posts) {
             if (post.getId().equals(id)) {
-                posts.remove(post);
+                removedPost = post;
             }
         }
+        posts.remove(removedPost);
         return null;
     }
 
