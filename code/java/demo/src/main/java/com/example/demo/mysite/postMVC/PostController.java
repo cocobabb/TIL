@@ -9,7 +9,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/mvc/posts")
 public class PostController {
-    private PostService postService = new PostService();
+//    private PostService postService = new PostService();
+
+//    DI 설정
+    private final PostService postService;
+
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
