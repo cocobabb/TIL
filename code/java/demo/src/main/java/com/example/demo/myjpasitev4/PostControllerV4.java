@@ -14,30 +14,78 @@ import java.util.List;
 public class PostControllerV4 {
     private final PostServiceV4 postServiceV4;
 
+//    @PostMapping
+//    public PostResponseDto createPost(@RequestBody PostCreateRequestDto requestDto) {
+//        return postServiceV4.createPost(requestDto);
+//    }
+
     @PostMapping
-    public PostResponseDto createPost(@RequestBody PostCreateRequestDto requestDto) {
-        return postServiceV4.createPost(requestDto);
+//    ResponseEntity
+//    - Spring Framework에서 HTTP 응답을 상세하게 제어할 수 있게 해주는 클래스
+//    - HTTP Status Code, Headers, Body 등을 직접 제어하여 클라이언트에게 더 명확한 응답을 전달 가능
+    public ResponseEntity<ApiResponse<PostResponseDto>> createPost(@RequestBody PostCreateRequestDto requestDto){
+        ResponseEntity<ApiResponse<PostResponseDto>> body = ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(
+                        ApiResponse.ok(
+                                "게시글이 정상적으로 작성되었습니다",
+                                "CREATED",
+                                postServiceV4.createPost(requestDto)
+                        )
+                );
+        return body;
     }
+
+//    @GetMapping
+//    public List<PostListResponseDto> readPosts() {
+//        return postServiceV4.readPosts();
+//    }
 
     @GetMapping
-    public List<PostListResponseDto> readPosts() {
-        return postServiceV4.readPosts();
+    public ResponseEntity<ApiResponse<List<PostListResponseDto>>> readPosts() {
+        List<PostListResponseDto> data = postServiceV4.readPosts();
+        ApiResponse<List<PostListResponseDto>> response = ApiResponse.ok(data);
+        return ResponseEntity.ok(response);
+
     }
+
+//    @GetMapping("/{id}")
+//    public PostResponseDto readPostById(Long id) {
+//        return postServiceV4.readPostById(id);
+//    }
 
     @GetMapping("/{id}")
-    public PostResponseDto readPostById(Long id) {
-        return postServiceV4.readPostById(id);
+    public ResponseEntity<ApiResponse<PostResponseDto>> readPostById(@PathVariable Long id){
+        return ResponseEntity.ok(ApiResponse.ok(postServiceV4.readPostById(id)));
     }
+
+
+//    @PutMapping("/{id}")
+//    public PostResponseDto updatePost(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto) {
+//        return postServiceV4.updatePost(id, requestDto);
+//    }
 
     @PutMapping("/{id}")
-    public PostResponseDto updatePost(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto) {
-        return postServiceV4.updatePost(id, requestDto);
+    public ResponseEntity<ApiResponse<PostResponseDto>> updatePost(@PathVariable Long id, @RequestBody PostUpdateRequestDto requestDto) {
+        return ResponseEntity.ok(ApiResponse.ok(postServiceV4.updatePost(id, requestDto)));
     }
 
+//    @DeleteMapping("/{id}")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void deletePost(@PathVariable Long id) {
+//        postServiceV4.deletePost(id);
+//    }
+
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePost(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<Void>> deletePost(@PathVariable Long id){
         postServiceV4.deletePost(id);
+        return ResponseEntity.ok(
+                ApiResponse.ok(
+                        "게시글이 정상적으로 삭제되었습니다",
+                        "DELETED",
+                        null
+                )
+        );
     }
 
 
