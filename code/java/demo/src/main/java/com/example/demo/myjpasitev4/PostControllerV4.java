@@ -1,6 +1,8 @@
 package com.example.demo.myjpasitev4;
 
 import com.example.demo.myjpasitev4.dto.*;
+import com.example.demo.myjpasitev4.exceptions.ResourceNotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,14 @@ import java.util.List;
 public class PostControllerV4 {
     private final PostServiceV4 postServiceV4;
 
+// @ControllerAdvice 해서 Controller에 직접적으로 추가할 필요 없음
+//    @ExceptionHandler(ResourceNotFoundException.class)
+//    public ResponseEntity<ApiResponse<Void>> handleResourceNotFound(ResourceNotFoundException ex) {
+//        return ResponseEntity
+//                .status(HttpStatus.NOT_FOUND)
+//                .body(ApiResponse.error("resoure not found", "NOT_FOUND"));
+//    }
+
 //    @PostMapping
 //    public PostResponseDto createPost(@RequestBody PostCreateRequestDto requestDto) {
 //        return postServiceV4.createPost(requestDto);
@@ -23,7 +33,7 @@ public class PostControllerV4 {
 //    ResponseEntity
 //    - Spring Framework에서 HTTP 응답을 상세하게 제어할 수 있게 해주는 클래스
 //    - HTTP Status Code, Headers, Body 등을 직접 제어하여 클라이언트에게 더 명확한 응답을 전달 가능
-    public ResponseEntity<ApiResponse<PostResponseDto>> createPost(@RequestBody PostCreateRequestDto requestDto){
+    public ResponseEntity<ApiResponse<PostResponseDto>> createPost(@Valid  @RequestBody PostCreateRequestDto requestDto){
         ResponseEntity<ApiResponse<PostResponseDto>> body = ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(
