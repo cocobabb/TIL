@@ -20,6 +20,7 @@ public class Score {
     public String toString() {
         return subject;
     }
+
 }
 //js class => object == map
 //javascript의 객체는 클래스이다. 클래스는 객체이다. map은 클래스이며 객체이다.
