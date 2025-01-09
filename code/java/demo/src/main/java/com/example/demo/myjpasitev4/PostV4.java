@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class PostV4 {
+public class PostV4 extends BaseTimeEntity{
     @Id
     //    기본 키를 매핑하는 어노테이션
     @GeneratedValue(strategy = GenerationType.IDENTITY)
