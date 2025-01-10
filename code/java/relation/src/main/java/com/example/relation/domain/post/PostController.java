@@ -89,19 +89,36 @@ public class PostController {
     }
 
 
-    // 게시글을 댓글과 태그들과 함께 조회.
+    // 특정게시글의 댓글들과 태그들을 함께 조회(게시글과 태그들은 함께, 댓글들은 따로 가져와서 카테시안곱 문제 해결)
     @GetMapping("/{id}/detail")
     public ResponseEntity<ApiResponse<PostWithCommentAndTagResponseDto>> readPostsByIdWithCommentAndTag(@PathVariable Long id) {
         return ResponseEntity.ok(ApiResponse.ok(
                 postService.readPostsByIdWithCommentAndTag(id)
         ));
     }
-
+    // 특정게시글의 댓글들과 태그들을 함께 조회(fetcch join과 Distinct로 카테시안곱 문제 해결)
     @GetMapping("/{id}/detail/v2")
     public ResponseEntity<ApiResponse<PostWithCommentAndTagResponseDtoV2>> readPostsByIdWithCommentAndTagV2(@PathVariable Long id) {
         return ResponseEntity.ok(ApiResponse.ok(
                 postService.readPostsByIdWithCommentAndTagV2(id)
         ));
+    }
+
+//    전체 게시글의 댓글들과 태그들을 함께 조회
+    @GetMapping("/detail")
+    public ResponseEntity<ApiResponse<List<PostWithCommentAndTagResponseDtoV2 >>> readPostsDetail(){
+        return ResponseEntity.ok(ApiResponse.ok(
+                postService.readPostsDetail()
+        ));
+    }
+// 태그로 검색하여 특정 태그를 가진 게시글의 댓글들과 태그들을 함께 조회
+    @GetMapping("/tags")
+    public ResponseEntity<ApiResponse<List<PostWithCommentAndTagResponseDtoV2>>> readPostsBy(@RequestParam String tag) {
+        return ResponseEntity.ok(
+                ApiResponse.ok(
+                        postService.readPostsByTag(tag)
+                )
+        );
     }
 
 }

@@ -114,7 +114,7 @@ public class PostService {
 //        return PostWithCommentAndTagResponseDto.from(post);
 //        =>문제: 포스트맨 실행 시 오류 MultipleBagFetchException: cannot simultaneously fetch multiple bags => 카테시안 곱 문제
 
-//        해결: 게시글과 tag를 함께 가져오고 댓글을 따로 가져와서 DTO에서 합침
+//      카테시안 곱 문제 해결: 게시글과 tag를 함께 가져오고 댓글을 따로 가져와서 DTO에서 합침
         Post postWithTag = postRepository.findByIdWithTag(id)
                 .orElseThrow(() -> new ResourceNotFoundException());
 
@@ -123,9 +123,25 @@ public class PostService {
         return PostWithCommentAndTagResponseDto.from(postWithTag, comments);
     }
 
+    // 카테시안 곱 문제 해결: fetch 와  batch 해결(쿼리문 많이 나가기 때문에 쿼리문에 DISTINCT 처리)
     public PostWithCommentAndTagResponseDtoV2 readPostsByIdWithCommentAndTagV2(Long id) {
         Post post = postRepository.findByIdWithCommentAndTagV2(id)
                 .orElseThrow(() -> new ResourceNotFoundException());
         return PostWithCommentAndTagResponseDtoV2.from(post);
+    }
+
+    //    전체 게시글의 댓글들과 태그들을 함께 조회
+    public List<PostWithCommentAndTagResponseDtoV2> readPostsDetail() {
+        return postRepository.findWithCommentAndTag()
+                .stream().map(
+                        PostWithCommentAndTagResponseDtoV2::from
+                ).toList();
+    }
+// 태그로 검색하여 특정 태그를 가진 게시글의 댓글들과 태그들을 함께 조회
+    public List<PostWithCommentAndTagResponseDtoV2> readPostsByTag(String tag) {
+        return postRepository.findAllByTagName(tag)
+                .stream().map(
+                        PostWithCommentAndTagResponseDtoV2::from
+                ).toList();
     }
 }

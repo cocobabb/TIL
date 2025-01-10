@@ -18,7 +18,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT p FROM Post p LEFT JOIN FETCH p.comments WHERE p.id = :id")
     Optional<Post> findByIdWithCommentFetch(@Param("id") Long id);
 
-    //    N+1문제 해결 => JOIN FETCH
+    // N+1문제 해결 => JOIN FETCH
     @Query("SELECT p FROM Post p LEFT JOIN FETCH p.comments")
     List<Post> findAllWithCommentFetch();
 
@@ -43,7 +43,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             "GROUP BY p")
     List<PostListWithCommentCountResponseDto> findAllWithCommentCountDTO();
 
-//     엔티티상으로는 특정 게시글에서 댓글들과 태그들을 가져오는게 문제가 되지않지만 해당 데이터들을 쿼리문을 통해서 가져오는데 해당 쿼리문은 카테시안곱 문제가 일어나고 있음
+//   문제: 엔티티상으로는 특정 게시글에서 댓글들과 태그들을 가져오는게 문제가 되지않지만 해당 데이터들을 쿼리문을 통해서 가져오는데 해당 쿼리문은 카테시안곱 문제가 일어나고 있음
     @Query("SELECT p FROM Post p " +
             "LEFT JOIN FETCH p.comments c " +
             "LEFT JOIN FETCH p.postTags pt " +
@@ -51,17 +51,33 @@ public interface PostRepository extends JpaRepository<Post, Long> {
             "WHERE p.id = :id")
     Optional<Post> findByIdWithCommentAndTag(@Param("id") Long id);
 
-// 해결: 게시글과 태그들까지만 같이 가져오고 댓글은 따로 가져와서 Dto상에서 합침
+// 해결1: 게시글과 태그들까지만 같이 가져오고 댓글은 따로 가져와서 Dto상에서 합쳐서 문제 해결
     @Query("SELECT p FROM Post p " +
             "LEFT JOIN FETCH p.postTags pt " +
             "LEFT JOIN FETCH pt.tag " +
             "WHERE p.id = :id")
     Optional<Post> findByIdWithTag(@Param("id") Long id);
 
+
+//   해결2: 일부 테이블을 fetch join 하고 DISTINCT를 사용하여 문제 해결
     @Query("SELECT DISTINCT p FROM Post p " +
             "LEFT JOIN p.comments c " +
-            "LEFT FETCH JOIN p.postTags pt " +
-            "LEFT FETCH JOIN pt.tag " +
+            "LEFT JOIN FETCH p.postTags pt " +
+            "LEFT JOIN FETCH pt.tag " +
             "WHERE p.id = :id")
     Optional<Post> findByIdWithCommentAndTagV2(@Param("id") Long id);
+
+    //    전체 게시글의 댓글들과 태그들을 함께 조회
+    @Query("SELECT p FROM Post p " +
+            "LEFT JOIN  p.comments " +
+            "LEFT JOIN  p.postTags pt " +
+            "LEFT JOIN  pt.tag ")
+    List<Post> findWithCommentAndTag();
+
+    // 태그로 검색하여 특정 태그를 가진 게시글의 댓글들과 태그들을 함께 조회
+    @Query("SELECT p FROM Post p " +
+            "JOIN p.postTags pt " +
+            "JOIN pt.tag t " +
+            "WHERE t.name = :tagName" )
+    List<Post> findAllByTagName(@Param("tagName") String tagName);
 }
