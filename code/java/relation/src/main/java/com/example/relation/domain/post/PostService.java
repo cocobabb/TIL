@@ -10,11 +10,15 @@ import com.example.relation.domain.post.repository.PostTagRepository;
 import com.example.relation.domain.tag.Tag;
 import com.example.relation.domain.tag.TagRepository;
 import com.example.relation.domain.tag.dto.TagRequestDto;
+import com.example.relation.global.common.service.FileService;
 import com.example.relation.global.exception.ResourceNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -26,6 +30,7 @@ public class PostService {
     private final CommentRepository commentRepository;
     private final TagRepository tagRepository;
     private final PostTagRepository postTagRepository;
+    private final FileService fileService;
 
     @Transactional
     public PostResponseDto createPost(PostCreateRequestDto requestDto) {
@@ -143,5 +148,50 @@ public class PostService {
                 .stream().map(
                         PostWithCommentAndTagResponseDtoV2::from
                 ).toList();
+    }
+//    해당 페이지번호에 있는 게시글 목록 조회
+//    Pageable: 페이징 된 데이터의 결과를 담는 interface => 페이징에 필요한 정보를 담고 있음
+//    page: 페이지 번호 0부터 시작, size: 페이지 크기(한 페이지당 요소가 들어갈 갯수), 정렬 방식 - sort)
+//    쿼리문에 위와 같은 변수명으로 값 받아서 처리됨
+    public List<PostResponseDto> readPostsWithPage(Pageable pageable) {
+       return postRepository.findAll(pageable)
+                .getContent()
+                .stream().map(
+                        PostResponseDto::from
+                ).toList();
+    }
+
+//    페이지 정보를 가진 해당 페이지 번호에 있는 게시글 목록
+    public PostListWithPageResponseDto radPostWithPageDetail(Pageable pageable) {
+        return PostListWithPageResponseDto.from(
+                postRepository.findAll(pageable)
+        );
+    }
+
+//    페이지번호와 게시물 정보 전체를 가진 게시글 목록 조회
+    public List<PostWithCommentAndTagResponseDtoV2> readPostsWithCommentPage(Pageable pageable) {
+        return postRepository.findPostsWithCommentPage(pageable)
+                .getContent()
+                .stream().map(
+                        PostWithCommentAndTagResponseDtoV2::from
+                ).toList();
+    }
+
+
+//  게시물 생성 시 사진도 포함해서 생성 가능
+    @Transactional
+    public PostWithImageResponseDto createPostWithImage(PostCreateRequestDto requestDto, MultipartFile image){
+
+        String imageUrl = null;
+        if(image != null && !image.isEmpty()) {
+            imageUrl = fileService.saveFile(image);
+        }
+
+        Post post = requestDto.toEntity();
+        post.setImageUrl(imageUrl);
+
+        return PostWithImageResponseDto.from(
+                postRepository.save(post)
+        );
     }
 }

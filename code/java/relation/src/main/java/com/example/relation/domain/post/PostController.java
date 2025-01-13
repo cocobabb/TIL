@@ -5,9 +5,12 @@ import com.example.relation.domain.tag.dto.TagRequestDto;
 import com.example.relation.global.response.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -121,6 +124,49 @@ public class PostController {
         );
     }
 
+//    해당 페이지번호에 있는 게시글  목록 조회
+    @GetMapping("/pages")
+    public ResponseEntity<ApiResponse<List<PostResponseDto>>> readPostsWithPage(Pageable pageable) {
+        return ResponseEntity.ok(
+          ApiResponse.ok(
+                  postService.readPostsWithPage(pageable)
+          )
+        );
+    }
+
+//    페이지 정보를 가진 해당 페이지 번호에 있는 게시글 목록
+    @GetMapping("/pages/detail")
+    public ResponseEntity<ApiResponse<PostListWithPageResponseDto>> readPostWithPageDetail(Pageable pageable) {
+        return ResponseEntity.ok(
+                ApiResponse.ok(
+                        postService.radPostWithPageDetail(pageable)
+                )
+        );
+    }
+
+//   페이지번호와 게시물 정보 전체를 가진 게시글 목록 조회
+    @GetMapping("/detail/pages")
+    public ResponseEntity<ApiResponse<List<PostWithCommentAndTagResponseDtoV2>>> readPostsWithCommentPage(Pageable pageable) {
+        return ResponseEntity.ok(
+                ApiResponse.ok(
+                        postService.readPostsWithCommentPage(pageable)
+                )
+        );
+    }
+
+//    게시물 생성 시 사진도 포함해서 생성 가능
+    @PostMapping("/images")
+    public ResponseEntity<ApiResponse<PostWithImageResponseDto>> createPostWithImage(
+            @RequestPart(value="data") PostCreateRequestDto requestDto,
+            @RequestPart(value = "image", required = false) MultipartFile image
+    ) {
+        return ResponseEntity.ok(
+                ApiResponse.ok(
+                        postService.createPostWithImage(requestDto, image)
+                )
+        );
+
+    }
 }
 
 

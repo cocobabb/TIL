@@ -4,10 +4,8 @@ import com.example.relation.domain.comment.Comment;
 import com.example.relation.domain.post.dto.PostUpdateRequestDto;
 import com.example.relation.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.List;
 
@@ -25,15 +23,20 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
+    @Setter
+    private String imageUrl;
+
     private String author;
 
 //   @OneToMany에 fetch 속성을 설정하지 않으면 기본 값은 아래와 같음
 //   fetch = FetChType.LAZY => 실행할 때 마다 가져옴
 
 //    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER) // => 처음 가져올 때 가져옴
+    @BatchSize(size = 10)
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     private List<Comment> comments;
 
+//    @BatchSize(size = 10)
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     private List<PostTag> postTags;
 
