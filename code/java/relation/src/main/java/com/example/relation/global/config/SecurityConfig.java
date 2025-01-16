@@ -1,5 +1,6 @@
 package com.example.relation.global.config;
 
+import com.example.relation.global.security.SecurityPathConfig;
 import com.example.relation.global.security.handler.CustomAccessDeniedHandler;
 import com.example.relation.global.security.handler.JwtAuthenticationEntryPoint;
 
@@ -7,6 +8,7 @@ import com.example.relation.global.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -47,8 +49,14 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
-                        .anyRequest().authenticated())
+//                        에러 발생 시 redircet되는 url: /error
+//                        - `GlobalExceptionHandler`에서 `Exception`에 대한 처리를 하면 필요 없다.
+//                        - 개발할때는 우선 전체 `Exception`에 대한 처리를 하지 않고, `/error` 를 열어두는걸 추천
+//                        "/images/**" 경로 인증 허용하지 않으면 이미지 볼수 없음
+                        .requestMatchers("/auth/**","/error", "/images/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, SecurityPathConfig.PUBLIC_GET_URLS).permitAll()
+                        .anyRequest().authenticated()
+                )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exception -> exception
                         .accessDeniedHandler(accessDeniedHandler)

@@ -1,6 +1,7 @@
-package com.example.relation.domain.post.dto;
+package com.example.relation.domain.post.dto.request;
 
-import com.example.relation.domain.post.entity.Post;
+import com.example.relation.domain.post.entity.Post2;
+import com.example.relation.domain.user.entity.User;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +13,7 @@ import org.hibernate.validator.constraints.Length;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostCreateRequestDto {
+public class Post2CreateWithAuthorRequestDto {
 
     @NotBlank()
     @Length(max = 20)
@@ -22,14 +23,12 @@ public class PostCreateRequestDto {
     @Length(min = 5)
     private String content;
 
-    @Length(min = 2, max = 10)
-    private String author;
 
-    public Post toEntity() {
-        return Post.builder()
+    public Post2 toEntity(User author) {
+        return Post2.builder()
                 .title(this.title)
                 .content(this.content)
-                .author(this.author)
+                .author(author)
                 .build();
     }
 }
