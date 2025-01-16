@@ -1,8 +1,7 @@
-package com.example.relation.domain.post.dto;
+package com.example.relation.domain.post.dto.response;
 
-import com.example.relation.domain.comment.Comment;
-import com.example.relation.domain.comment.dto.CommentResponseDto;
 import com.example.relation.domain.post.entity.Post;
+import com.example.relation.domain.comment.dto.CommentResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -11,7 +10,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class PostWithCommentAndTagResponseDtoV2 {
+public class PostWithCommentResponseDtoV2 {
     private final Long id;
     private final String title;
     private final String content;
@@ -20,26 +19,19 @@ public class PostWithCommentAndTagResponseDtoV2 {
     private final LocalDateTime updatedAt;
 
     private final List<CommentResponseDto> comments;
-    private final List<String> tags;
 
-    public static PostWithCommentAndTagResponseDtoV2 from(Post entity) {
-        return PostWithCommentAndTagResponseDtoV2.builder()
+
+    public static PostWithCommentResponseDtoV2 from(Post entity) {
+        return PostWithCommentResponseDtoV2.builder()
                 .id(entity.getId())
                 .title(entity.getTitle())
                 .content(entity.getContent())
                 .author(entity.getAuthor())
                 .createdAt(entity.getCreatedAt())
                 .updatedAt(entity.getUpdatedAt())
-                .comments(
-                entity.getComments().stream()
+                .comments(entity.getComments().stream()
                         .map(CommentResponseDto::from)
                         .toList())
-                .tags(
-                        entity.getPostTags().stream()
-                                .map(
-                                        postTag -> postTag.getTag().getName()
-                                ).toList()
-                )
                 .build();
     }
 

@@ -1,4 +1,4 @@
-package com.example.relation.domain.post.dto;
+package com.example.relation.domain.post.dto.response;
 
 import com.example.relation.domain.post.entity.Post;
 import lombok.Builder;

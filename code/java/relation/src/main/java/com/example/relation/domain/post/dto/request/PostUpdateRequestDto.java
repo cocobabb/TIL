@@ -1,4 +1,4 @@
-package com.example.relation.domain.post.dto;
+package com.example.relation.domain.post.dto.request;
 
 
 import lombok.Getter;

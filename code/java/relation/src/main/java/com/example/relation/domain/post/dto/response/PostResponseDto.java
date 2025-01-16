@@ -1,16 +1,14 @@
-package com.example.relation.domain.post.dto;
+package com.example.relation.domain.post.dto.response;
 
 import com.example.relation.domain.post.entity.Post;
-import com.example.relation.domain.comment.dto.CommentResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Builder
-public class PostWithCommentResponseDtoV2 {
+public class PostResponseDto {
     private final Long id;
     private final String title;
     private final String content;
@@ -18,21 +16,14 @@ public class PostWithCommentResponseDtoV2 {
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
 
-    private final List<CommentResponseDto> comments;
-
-
-    public static PostWithCommentResponseDtoV2 from(Post entity) {
-        return PostWithCommentResponseDtoV2.builder()
+    public static PostResponseDto from(Post entity) {
+        return PostResponseDto.builder()
                 .id(entity.getId())
                 .title(entity.getTitle())
                 .content(entity.getContent())
                 .author(entity.getAuthor())
                 .createdAt(entity.getCreatedAt())
                 .updatedAt(entity.getUpdatedAt())
-                .comments(entity.getComments().stream()
-                        .map(CommentResponseDto::from)
-                        .toList())
                 .build();
     }
-
 }

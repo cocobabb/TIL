@@ -1,6 +1,6 @@
 package com.example.relation.domain.post;
 
-import com.example.relation.domain.post.dto.PostWithCommentResponseDtoV2;
+import com.example.relation.domain.post.dto.response.PostWithCommentResponseDtoV2;
 import com.example.relation.domain.post.entity.Post;
 import com.example.relation.domain.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
