@@ -21,6 +21,7 @@ import com.example.relation.global.common.service.FileService;
 import com.example.relation.global.exception.ResourceNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +29,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@Slf4j
+// @Sl4j
+// : console.log() 대신 로깅을 쓰면 사용자에게 정보를 노출시기키지 않고도  애플리케이션의 동작 상태와 문제점을 파악하기 위해 정보를 기록할 수 있음
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -39,6 +43,7 @@ public class PostService {
     private final FileService fileService;
     private final Post2Repository post2Repository;
 
+
     @Transactional
     public PostResponseDto createPost(PostCreateRequestDto requestDto) {
         Post post = postRepository.save(requestDto.toEntity());
@@ -46,6 +51,7 @@ public class PostService {
     }
 
     public List<PostListResponseDto> readPosts(){
+        log.info("read posts");
         return postRepository.findAll().stream()
                 .map(PostListResponseDto::from)
                 .toList();
@@ -54,6 +60,7 @@ public class PostService {
     public PostWithCommentResponseDto readPostById(Long id){
         Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException());
         List<Comment> comments = commentRepository.findByPostId(id);
+        log.info("read posts {}", id);
         return PostWithCommentResponseDto.from(post, comments);
     }
 
@@ -203,12 +210,9 @@ public class PostService {
     }
 
     @Transactional
-    public Post2ResponseDto createPost2(
-            Post2CreateWithAuthorRequestDto requestDto,
-            User user
-    ){
+    public Post2ResponseDto createPost2(Post2CreateWithAuthorRequestDto requestDto, User user) {
         return Post2ResponseDto.from(
-                post2Repository.save(requestDto.toEntity(user))
+                post2Repository.save( requestDto.toEntity(user))
         );
     }
 }

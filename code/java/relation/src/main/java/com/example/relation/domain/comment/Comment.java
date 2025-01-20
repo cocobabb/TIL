@@ -23,7 +23,8 @@ public class Comment extends BaseTimeEntity {
     @Builder
     public Comment(String content, Post post) {
         this.content = content;
-        this.post = post;
+//        this.post = post;
+        setPost(post);
     }
 
     public Comment update(CommentRequestDto requestDto) {

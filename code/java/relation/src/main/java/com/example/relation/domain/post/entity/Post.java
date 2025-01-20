@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,11 +35,11 @@ public class Post extends BaseTimeEntity {
 //    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER) // => 처음 가져올 때 가져옴
     @BatchSize(size = 10)
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();
 
 //    @BatchSize(size = 10)
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
-    private List<PostTag> postTags;
+    private List<PostTag> postTags = new ArrayList<>();
 
     @Builder
     public Post(String title, String content, String author) {

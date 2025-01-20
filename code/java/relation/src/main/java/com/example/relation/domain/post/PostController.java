@@ -9,6 +9,9 @@ import com.example.relation.domain.post.dto.response.*;
 import com.example.relation.domain.tag.dto.TagRequestDto;
 import com.example.relation.domain.user.entity.User;
 import com.example.relation.global.response.ApiResponse;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -20,12 +23,27 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@Tag(name = "게시글 관리", description = "게시글 관리 API")
+//@Tag(API 컨트롤러 레벨 어노테이션 => API 문서화)
+// : API 그룹을 설정한다
+//    - name: API 그룹의 이름
+//    - description: API 그룹에 대한 설명
 @RestController
 @RequestMapping("/posts")
 @RequiredArgsConstructor
 public class PostController {
     private final PostService postService;
 
+//@Operation(API 메서드 레벨 어노테이션 => API 문서화)
+//: 각 API에 대한 설명을 추가한다
+//  - summary: API에 대한 간단한 설명
+//  - description: API에 대한 상세한 설명
+    @Operation(
+            summary = "게시글 작성",
+            description = """
+            제목, 내용을 입력받아 게시글을 작성한다.
+        """
+    )
     @PostMapping
     public ResponseEntity<ApiResponse<PostResponseDto>> createPost(@Valid @RequestBody PostCreateRequestDto requestDto) {
         return ResponseEntity

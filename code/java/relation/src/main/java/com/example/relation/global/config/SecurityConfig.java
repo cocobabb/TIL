@@ -20,6 +20,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 
 @Configuration
@@ -45,15 +48,20 @@ public class SecurityConfig {
 //                - CSRF 공격은 쿠키를 통해 이루어지는데, REST API는 헤더를 활용해 인증을 하므로 CSRF 공격 방지를 할 필요가 없다
 //                - 단,  REST API도 쿠키를 통해 인증을 할 수 있는데, 이때는 추가적인 조치가 필요
         http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // CORS 설정 연결
+
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/verify").authenticated()
 //                        에러 발생 시 redircet되는 url: /error
 //                        - `GlobalExceptionHandler`에서 `Exception`에 대한 처리를 하면 필요 없다.
 //                        - 개발할때는 우선 전체 `Exception`에 대한 처리를 하지 않고, `/error` 를 열어두는걸 추천
 //                        "/images/**" 경로 인증 허용하지 않으면 이미지 볼수 없음
-                        .requestMatchers("/auth/**","/error", "/images/**").permitAll()
+                        .requestMatchers("/auth/**","/error", "/images").permitAll()
+//                        REST API를 문서화하고 테스트할 수 있게 해주는 오픈소스 도구 인증 허용
+                                .requestMatchers("/swagger-ui/**", "swagger-ui.html", "/api-docs/**").permitAll()
                         .requestMatchers(HttpMethod.GET, SecurityPathConfig.PUBLIC_GET_URLS).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -71,7 +79,6 @@ public class SecurityConfig {
             UserDetailsService userDetailsService,
             PasswordEncoder passwordEncoder
     ) {
-
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         //        user detail -> db에서 user를 가져올 수 있는 객체
         authProvider.setUserDetailsService(userDetailsService);
@@ -82,4 +89,19 @@ public class SecurityConfig {
         return new ProviderManager(authProvider);
     }
 
+    @Bean
+//    리액트와의 연결
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("http://localhost:5173");
+        configuration.addAllowedMethod("*");
+        configuration.addAllowedHeader("*");
+//        CORS(Cross-Origin Resource Sharing) 설정 시 사용되는 메서드
+//        브라우저가 자격 증명(쿠키, HTTP 인증 헤더 등)을 포함한 요청을 허용할지 여부를 결정
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 }
