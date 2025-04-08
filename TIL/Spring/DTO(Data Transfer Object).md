@@ -127,7 +127,7 @@ public class UserResponseDto {
 }
 ```
 
-## @Build의 장점
+## @Build(Lombok 라이브러리)의 장점
 
 ##### 가독성 향상
 
@@ -144,8 +144,81 @@ public class UserResponseDto {
 - 필수값과 선택값을 구분하여 처리 가능
 - **다양한 객체 생성 패턴을 지원**
 
-#### Build로 해결되는 일반 생성자로 생성 시 문제점
+@Build
 
+- **객체 생성의 유연성:** `@Builder`를 사용하면 선택적인 매개변수를 가진 객체를 쉽게 생성
+
+```Java
+User user = User.builder()
+                .name("John")
+                .build();  // 필드 `id`와 `email`은 설정하지 않아도 됩니다.
+```
+
+```Java
+// 오버로딩 방식
+User user1 = new User(1L, "John");
+User user2 = new User(1L, "John", "john@example.com");
+
+// 빌더 방식
+User user1 = User.builder().id(1L).name("John").build();
+User user2 = User.builder().id(1L).name("John").email("john@example.com").build();
+```
+
+- **가독성 향상:** 코드의 가독성을 향상
+
+#### builder로 해결되는 일반 생성자로 생성 시 문제점
+
+##### 일반 생성자로 생성 시
+
+```Java
+User user = new User(1L, "John", "john@example.com");
+
+```
+
+문제점:
+
+- 매개변수 순서 외워야 함
 - 매개변수가 많을 경우 가독성이 떨어짐
 - 어떤 값이 어떤 필드에 매핑되는지 알기 어려움
 - **선택적 매개변수가 많을 경우 생성자 오버로딩이 증가**
+
+##### 빌더 사용시
+
+```Java
+User user = User.builder()
+                .id(1L)
+                .name("John")
+                .email("john@example.com")
+                .build();
+```
+
+장점:
+
+- **필드 이름과 값을 나란히 명시해 직관적으로 이해 가능**
+- **필드 순서와 상관없이 값을 설정**할 수 있습니다.
+- 코드 가독성이 크게 향상
+- **불변 객체 생성:** 불변 객체를 쉽게 생성
+
+- `@Builder`는 private 또는 protected 필드에도 접근할 수 있지만, **필드에 기본 생성자가 없는 경우 동작하지 않을 수 있음**
+
+`@Builder`를 사용하면 아래와 같은 기능을 자동으로 생성
+
+1. **빌더 클래스**: 원본 클래스와 동일한 이름에 `Builder`라는 이름이 추가된 내부 정적 클래스를 생성합니다.
+
+```Java
+public class Main {
+    public static void main(String[] args) {
+        User user = User.builder()
+                        .id(1L)
+                        .name("John Doe")
+                        .email("john.doe@example.com")
+                        .build();
+
+        System.out.println(user);
+        // 출력 결과: User(id=1, name=John Doe, email=john.doe@example.com)
+    }
+}
+
+```
+
+- **빌드 메서드**: 설정된 값으로 객체를 생성합니다.
