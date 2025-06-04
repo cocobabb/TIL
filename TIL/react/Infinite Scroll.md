@@ -2,11 +2,13 @@
 ## Intersection Observer API
 : 타겟 요소와 상위 요소 또는 최상위 documendml viewport 사이의 intersection내의 변화를 비동기적으로 관찰
 ```Terminal
-npm install react-intersection-observer --save
+npm install react-intersection-observer
 ```
 
 ## 함수
 ```javascript
+import { useInView } from "react-intersection-observer";
+
 const { ref, inView } = useInView({
   triggerOnce: true,
   threshold: 0.1,
